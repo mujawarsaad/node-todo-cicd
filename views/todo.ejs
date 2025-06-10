@@ -1,111 +1,153 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <title>Todo List APP test</title>
-        <style>
-            body {
-                font-family: Arial, sans-serif;
-                background-color: #f4f4f4;
-                color: #333;
-                margin: 0;
-                padding: 0;
-            }
+<head>
+  <title>Todo List APP ✨</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
 
-            h1 {
-                background-color: #4CAF50;
-                color: white;
-                margin: 0;
-                padding: 20px;
-                text-align: center;
-            }
+    body {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 50px 20px;
+      color: #fff;
+    }
 
-            ul {
-                list-style: none;
-                padding: 0;
-            }
+    .container {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 30px;
+      max-width: 500px;
+      width: 100%;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      animation: fadeIn 0.8s ease-in-out;
+    }
 
-            ul li {
-                background: #fff;
-                border: 1px solid #ddd;
-                margin-bottom: 10px;
-                padding: 10px;
-                position: relative;
-            }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
 
-            ul li a {
-                color: #333;
-                text-decoration: none;
-                font-weight: bold;
-            }
+    h1 {
+      text-align: center;
+      font-size: 22px;
+      margin-bottom: 25px;
+    }
 
-            ul li a:hover {
-                color: #4CAF50;
-            }
+    ul {
+      list-style: none;
+    }
 
-            .delete-btn {
-                color: red;
-                position: absolute;
-                right: 10px;
-                top: 10px;
-            }
+    ul li {
+      background: rgba(255, 255, 255, 0.15);
+      padding: 15px 20px;
+      border-radius: 12px;
+      margin-bottom: 12px;
+      color: #fff;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.3s ease;
+    }
 
-            .edit-btn {
-                color: #FFC107;
-                position: absolute;
-                right: 40px;
-                top: 10px;
-            }
+    ul li:hover {
+      background: rgba(255, 255, 255, 0.25);
+    }
 
-            form {
-                background: #fff;
-                padding: 20px;
-                margin-top: 20px;
-            }
+    .btn-group {
+      display: flex;
+      gap: 12px;
+    }
 
-            label {
-                display: block;
-                margin-bottom: 10px;
-            }
+    .delete-btn,
+    .edit-btn {
+      text-decoration: none;
+      font-size: 18px;
+      transition: transform 0.2s ease;
+    }
 
-            input[type="text"] {
-                width: 100%;
-                padding: 10px;
-                margin-bottom: 10px;
-                border: 1px solid #ddd;
-            }
+    .delete-btn {
+      color: #ff6b6b;
+    }
 
-            input[type="submit"] {
-                background-color: #4CAF50;
-                color: white;
-                border: none;
-                padding: 10px 20px;
-                cursor: pointer;
-            }
+    .edit-btn {
+      color: #ffd93d;
+    }
 
-            input[type="submit"]:hover {
-                background-color: #45a049;
-            }
-        </style>
-    </head>
+    .delete-btn:hover,
+    .edit-btn:hover {
+      transform: scale(1.2);
+    }
 
-    <body>
-        <h1>Hello Junoon Batch 8 (Jenkins), Write your plan on Learning Jenkins</h1>
-        <ul>
-            <% todolist.forEach(function(todo, index) { %>
-            <li>
-                <a href="/todo/delete/<%= index %>" class="delete-btn">✘</a>
-                <a href="/todo/<%= index %>" class="edit-btn">✎</a>
-                <%- todo %>
-            </li>
-            <% }); %>
-        </ul>
+    form {
+      margin-top: 25px;
+    }
 
-        <form action="/todo/add/" method="post">
-            <p>
-                <label for="newtodo">What should I do?</label>
-                <input type="text" name="newtodo" id="newtodo" autofocus />
-                <input type="submit" value="Add" />
-            </p>
-        </form>
-    </body>
+    label {
+      font-weight: 600;
+      margin-bottom: 8px;
+      display: block;
+      color: #eaeaea;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 12px;
+      border-radius: 10px;
+      border: none;
+      outline: none;
+      font-size: 16px;
+      margin-bottom: 16px;
+    }
+
+    input[type="submit"] {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      background-color: #00d4ff;
+      color: #fff;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #00b8e6;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>📝 Hello Junoon Batch 8 — Plan Your Jenkins Learning!</h1>
+    <ul>
+      <% todolist.forEach(function(todo, index) { %>
+        <li>
+          <span><%- todo %></span>
+          <div class="btn-group">
+            <a href="/todo/<%= index %>" class="edit-btn" title="Edit">✎</a>
+            <a href="/todo/delete/<%= index %>" class="delete-btn" title="Delete">✘</a>
+          </div>
+        </li>
+      <% }); %>
+    </ul>
+
+    <form action="/todo/add/" method="post">
+      <label for="newtodo">Add a new task ✨</label>
+      <input type="text" name="newtodo" id="newtodo" placeholder="Type something amazing..." autofocus />
+      <input type="submit" value="Add Task" />
+    </form>
+  </div>
+</body>
 </html>
